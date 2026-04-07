@@ -98,9 +98,8 @@ $currentYear = date('Y');
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Maintenance Control</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../style.css">
     <style>
-        body { font-family: 'Inter', system-ui, -apple-system, sans-serif; }
-        /* Custom animation for pulse glow */
         @keyframes subtle-pulse {
             0%, 100% { opacity: 1; }
             50% { opacity: 0.7; }
@@ -205,7 +204,7 @@ $currentYear = date('Y');
         });
     </script>
 </head>
-<body class="bg-zinc-950 text-zinc-200 h-full flex flex-col justify-center items-center min-h-screen relative overflow-hidden">
+<body class="bg-zinc-950 text-zinc-200 h-full flex flex-col justify-center items-center min-h-screen relative overflow-hidden bg-grid-overlay">
 
     <div class="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none z-0">
         <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-indigo-900/20 rounded-full blur-3xl"></div>

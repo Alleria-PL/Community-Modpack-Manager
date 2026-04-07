@@ -1,0 +1,159 @@
+/* ============================================================
+   Community Modpack Manager — Shared Modern Stylesheet
+   ============================================================ */
+
+/* Google Fonts — Inter */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+/* ── Base ─────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* ── Scrollbar ────────────────────────────────────────────── */
+::-webkit-scrollbar          { width: 8px; height: 8px; }
+::-webkit-scrollbar-track    { background: #09090b; }
+::-webkit-scrollbar-thumb    { background: #3f3f46; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #52525b; }
+
+/* ── Background grid overlay ──────────────────────────────── */
+.bg-grid-overlay {
+    background-image:
+        linear-gradient(rgba(63, 63, 70, 0.12) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(63, 63, 70, 0.12) 1px, transparent 1px);
+    background-size: 40px 40px;
+}
+
+/* ── Glass card ───────────────────────────────────────────── */
+.glass-card {
+    background: rgba(24, 24, 27, 0.75);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(63, 63, 70, 0.6);
+}
+
+/* ── Gradient accent text ─────────────────────────────────── */
+.gradient-text {
+    background: linear-gradient(135deg, #818cf8 0%, #c084fc 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* ── Gradient border card ─────────────────────────────────── */
+.gradient-border-card {
+    position: relative;
+    border-radius: 1rem;
+    background: #18181b;
+}
+.gradient-border-card::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    background: linear-gradient(135deg,
+        rgba(99, 102, 241, 0.4) 0%,
+        rgba(139, 92, 246, 0.2) 50%,
+        rgba(63, 63, 70, 0.4) 100%
+    );
+    z-index: -1;
+    pointer-events: none;
+}
+
+/* ── Hover lift ───────────────────────────────────────────── */
+.hover-lift {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.hover-lift:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
+}
+
+/* ── Progress bar fill transition ────────────────────────── */
+.progress-bar-fill {
+    transition: width 0.3s ease-in-out;
+}
+
+/* ── Shimmer animation (progress bars) ───────────────────── */
+@keyframes shimmer {
+    0%   { background-position: -400px 0; }
+    100% { background-position: 400px 0; }
+}
+.progress-shimmer {
+    background: linear-gradient(
+        90deg,
+        rgba(255,255,255,0) 0%,
+        rgba(255,255,255,0.08) 50%,
+        rgba(255,255,255,0) 100%
+    );
+    background-size: 400px 100%;
+    animation: shimmer 1.6s infinite linear;
+}
+
+/* ── Glow pulse (active status dot) ──────────────────────── */
+@keyframes glow-pulse {
+    0%, 100% { box-shadow: 0 0 4px rgba(99, 102, 241, 0.5); }
+    50%       { box-shadow: 0 0 16px rgba(99, 102, 241, 0.9), 0 0 32px rgba(99, 102, 241, 0.3); }
+}
+.glow-indigo { animation: glow-pulse 2s ease-in-out infinite; }
+
+/* ── Floating blob background decorations ────────────────── */
+@keyframes blob-float {
+    0%, 100% { transform: translate(0, 0)   scale(1);    opacity: 0.18; }
+    33%      { transform: translate(24px, -24px) scale(1.06); opacity: 0.14; }
+    66%      { transform: translate(-16px,  20px) scale(0.96); opacity: 0.20; }
+}
+.animate-blob { animation: blob-float 9s ease-in-out infinite; }
+.animation-delay-2000 { animation-delay: 2s; }
+.animation-delay-4000 { animation-delay: 4s; }
+
+/* ── Fade-in on load ──────────────────────────────────────── */
+@keyframes fade-in-up {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0);    }
+}
+.animate-fade-in-up { animation: fade-in-up 0.5s ease both; }
+.delay-100 { animation-delay: 0.1s; }
+.delay-200 { animation-delay: 0.2s; }
+.delay-300 { animation-delay: 0.3s; }
+.delay-400 { animation-delay: 0.4s; }
+
+/* ── Button glow on hover ─────────────────────────────────── */
+.btn-glow-indigo:hover {
+    box-shadow: 0 0 20px rgba(99, 102, 241, 0.45), 0 4px 16px rgba(0,0,0,0.3);
+}
+.btn-glow-emerald:hover {
+    box-shadow: 0 0 20px rgba(16, 185, 129, 0.45), 0 4px 16px rgba(0,0,0,0.3);
+}
+.btn-glow-amber:hover {
+    box-shadow: 0 0 20px rgba(217, 119, 6, 0.45), 0 4px 16px rgba(0,0,0,0.3);
+}
+
+/* ── Status badge ─────────────────────────────────────────── */
+.status-active {
+    border-color: rgba(99, 102, 241, 0.4) !important;
+    background: rgba(99, 102, 241, 0.07) !important;
+}
+.status-paused {
+    border-color: rgba(63, 63, 70, 0.6) !important;
+    background: rgba(39, 39, 42, 0.5) !important;
+}
+
+/* ── Code / pre block ────────────────────────────────────── */
+.code-block {
+    background: #09090b;
+    border: 1px solid #27272a;
+    border-radius: 0.75rem;
+    padding: 1.25rem 1.5rem;
+    font-family: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', ui-monospace, monospace;
+    font-size: 0.8125rem;
+    line-height: 1.7;
+    color: #a1a1aa;
+    white-space: pre-wrap;
+    word-break: break-word;
+    overflow-x: auto;
+}

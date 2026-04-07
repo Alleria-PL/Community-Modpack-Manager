@@ -57,12 +57,12 @@ function listFiles($title, $folder) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KT - Management [Alleria]</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
     <style>
         ::-webkit-scrollbar { width: 8px; height: 8px; }
-        ::-webkit-scrollbar-track { background: #18181b; }
+        ::-webkit-scrollbar-track { background: #09090b; }
         ::-webkit-scrollbar-thumb { background: #3f3f46; border-radius: 4px; }
         ::-webkit-scrollbar-thumb:hover { background: #52525b; }
-        body { font-family: 'Inter', system-ui, -apple-system, sans-serif; }
     </style>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-J0WCNB0WDW"></script>
     <script>
@@ -72,13 +72,13 @@ function listFiles($title, $folder) {
       gtag('config', 'G-J0WCNB0WDW');
     </script>
 </head>
-<body class="bg-zinc-950 text-zinc-200 h-full flex flex-col overflow-hidden">
+<body class="bg-zinc-950 text-zinc-200 h-full flex flex-col overflow-hidden bg-grid-overlay">
 
-    <header class="bg-zinc-900 border-b border-zinc-800 shadow-md z-20 flex-shrink-0">
+    <header class="bg-zinc-900/90 backdrop-blur-md border-b border-zinc-800/80 shadow-lg shadow-black/20 z-20 flex-shrink-0">
         <div class="w-full flex flex-wrap items-center justify-between px-6 py-3">
             
             <div class="flex items-center mr-8 flex-shrink-0">
-                <div class="bg-indigo-600 p-2 rounded-lg mr-3 shadow-lg shadow-indigo-500/20">
+                <div class="bg-indigo-600 p-2 rounded-lg mr-3 shadow-lg shadow-indigo-500/30 ring-1 ring-indigo-400/20">
                     <img src="http://alleria.pl/image/favicon.png" alt="Alleria Logo" class="w-6 h-6 object-contain">
                 </div>
                 <div>
@@ -165,7 +165,7 @@ function listFiles($title, $folder) {
         <?php } ?>
     </main>
 
-    <footer class="bg-zinc-900 border-t border-zinc-800 py-3 flex-shrink-0 z-20">
+    <footer class="bg-zinc-900/90 backdrop-blur-md border-t border-zinc-800/80 py-3 flex-shrink-0 z-20">
         <div class="text-center text-xs font-mono text-zinc-500">
             &copy; 2025 - <?php echo $currentYear; ?> <a target="_blank" href="https://alleria.pl" class="text-zinc-300 hover:text-white transition-colors">Alleria</a> | All Rights Reserved | 
             Built by <a target="_blank" href="https://x.com/henas_pl" class="text-zinc-300 hover:text-white transition-colors">@henas_pl</a>
