@@ -15,7 +15,7 @@ This project provides a centralized platform integrating multiple services and t
 - **Pterodactyl Panel Integration**
   - Embedded via iframe
 
-- **Dynam Integration**
+- **Dynmap Integration**
   - Embedded via iframe
 
 - **Archive Library**
