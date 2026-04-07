@@ -4,17 +4,101 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Upload Klocki Time Modpack</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* Custom styles for consistency */
+        * { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
         body { font-family: 'Inter', system-ui, -apple-system, sans-serif; }
-        ::-webkit-scrollbar { width: 8px; height: 8px; }
-        ::-webkit-scrollbar-track { background: #18181b; }
-        ::-webkit-scrollbar-thumb { background: #3f3f46; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #52525b; }
-        
+
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #09090b; }
+        ::-webkit-scrollbar-thumb { background: linear-gradient(180deg, #4f46e5, #7c3aed); border-radius: 999px; }
+        ::-webkit-scrollbar-thumb:hover { background: linear-gradient(180deg, #6366f1, #8b5cf6); }
+
+        /* Animated ambient gradient blobs */
+        body::before {
+            content: '';
+            position: fixed;
+            top: -15%;
+            left: -5%;
+            width: 45vw;
+            height: 45vw;
+            background: radial-gradient(circle, rgba(99,102,241,0.07) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
+        body::after {
+            content: '';
+            position: fixed;
+            bottom: -15%;
+            right: -5%;
+            width: 35vw;
+            height: 35vw;
+            background: radial-gradient(circle, rgba(168,85,247,0.05) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Glass card effect */
+        .glass-card {
+            background: rgba(24, 24, 27, 0.6);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+        }
+
+        /* Glow progress bar */
         .progress-bar-fill {
             transition: width 0.3s ease-in-out;
+        }
+
+        /* Glow shadow on active progress */
+        #progressBar {
+            box-shadow: 0 0 12px rgba(99,102,241,0.6), 0 0 24px rgba(99,102,241,0.25);
+        }
+
+        /* Upload button gradient */
+        #uploadBtn:not(:disabled) {
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            box-shadow: 0 4px 20px rgba(99,102,241,0.3), 0 2px 8px rgba(124,58,237,0.2);
+        }
+        #uploadBtn:not(:disabled):hover {
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            box-shadow: 0 4px 24px rgba(99,102,241,0.45), 0 2px 10px rgba(124,58,237,0.3);
+        }
+
+        /* Rollout button gradient */
+        .rollout-btn {
+            background: linear-gradient(135deg, #059669, #0d9488);
+            box-shadow: 0 4px 20px rgba(5,150,105,0.3);
+        }
+        .rollout-btn:hover {
+            background: linear-gradient(135deg, #10b981, #14b8a6);
+            box-shadow: 0 4px 28px rgba(16,185,129,0.4);
+        }
+
+        /* Header logo glow */
+        .logo-glow {
+            filter: drop-shadow(0 0 12px rgba(99,102,241,0.5));
+        }
+
+        /* Card fade-in */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(12px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        .card-animate { animation: fadeUp 0.5s ease-out both; }
+        .card-animate:nth-child(2) { animation-delay: 0.1s; }
+        .card-animate:nth-child(3) { animation-delay: 0.2s; }
+
+        /* File input styling */
+        input[type="file"] {
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        input[type="file"]:hover {
+            border-color: rgba(99,102,241,0.5);
+            box-shadow: 0 0 0 3px rgba(99,102,241,0.08);
         }
     </style>
     <script>
@@ -257,17 +341,18 @@
 </head>
 <body class="bg-zinc-950 text-zinc-200 h-full flex flex-col min-h-screen">
 
-    <header class="pt-8 pb-4 flex justify-center">
-        <div class="text-center">
-            <img src="https://alleria.pl/image/logo-clr.png" alt="Alleria Logo" class="h-16 mb-2 mx-auto drop-shadow-2xl">
-            <h1 class="text-2xl font-bold tracking-tight text-white mt-2">Upload Client</h1>
+    <header class="pt-8 pb-4 flex justify-center relative">
+        <div class="text-center card-animate">
+            <img src="https://alleria.pl/image/logo-clr.png" alt="Alleria Logo" class="h-16 mb-2 mx-auto logo-glow">
+            <h1 class="text-2xl font-extrabold tracking-tight text-white mt-2 bg-gradient-to-r from-white to-zinc-300 bg-clip-text">Upload Client</h1>
             <p class="text-zinc-500 text-sm font-mono uppercase tracking-widest">of Klocki Time Modpack</p>
         </div>
     </header>
 
     <main class="flex-grow container mx-auto px-4 py-6 max-w-3xl">
         
-        <div class="bg-zinc-900/50 backdrop-blur-sm border border-zinc-800 rounded-xl p-6 mb-8 text-center shadow-xl">
+        <div class="glass-card border border-zinc-800/80 rounded-2xl p-6 mb-8 text-center shadow-2xl card-animate relative overflow-hidden">
+            <div class="absolute inset-0 bg-gradient-to-br from-amber-500/5 to-transparent pointer-events-none rounded-2xl"></div>
             <div class="flex items-center justify-center mb-4 text-amber-500">
                 <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
                 <span class="font-bold text-sm uppercase tracking-wide">Important Notice</span>
@@ -284,8 +369,9 @@
             <p class="mt-4 text-xs text-zinc-600 font-mono">Current version upload date: <span id="uploadDate" class="text-zinc-400">Loading...</span> [YYYY-MM-DD]</p>
         </div>
 
-        <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6 lg:p-8 shadow-2xl relative overflow-hidden">
-            <div class="absolute top-0 right-0 -mr-16 -mt-16 w-64 h-64 bg-indigo-600/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="glass-card border border-zinc-800/80 rounded-2xl p-6 lg:p-8 shadow-2xl relative overflow-hidden card-animate">
+            <div class="absolute top-0 right-0 -mr-20 -mt-20 w-72 h-72 bg-indigo-600/8 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute bottom-0 left-0 -ml-10 -mb-10 w-48 h-48 bg-purple-600/5 rounded-full blur-3xl pointer-events-none"></div>
             
             <div class="mb-6 relative z-10">
                 <label for="fileInput" class="block text-sm font-medium text-zinc-400 mb-2">Select ZIP File</label>
@@ -342,7 +428,7 @@
         </div>
 
         <div class="mt-8 text-center">
-            <button onclick="makeLiveVersion()" class="group relative inline-flex items-center justify-center px-8 py-3 font-bold text-white transition-all duration-200 bg-emerald-600 font-lg rounded-lg hover:bg-emerald-500 hover:shadow-lg hover:shadow-emerald-500/30 focus:outline-none ring-offset-2 focus:ring-2 ring-emerald-500">
+            <button onclick="makeLiveVersion()" class="rollout-btn group relative inline-flex items-center justify-center px-8 py-3 font-bold text-white transition-all duration-200 font-lg rounded-xl focus:outline-none ring-offset-2 focus:ring-2 ring-emerald-500">
                 <span class="mr-2">Rollout New Version</span>
                 <svg class="w-5 h-5 transition-transform group-hover:rotate-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
             </button>
@@ -357,8 +443,8 @@
 
         <div class="mt-8"></div>
 
-    <div id="customModal" class="fixed inset-0 z-50 hidden bg-zinc-950/80 backdrop-blur-sm flex items-center justify-center transition-opacity">
-        <div class="bg-zinc-900 border border-zinc-700 w-full max-w-md p-6 rounded-xl shadow-2xl transform scale-95 opacity-0 transition-all duration-300 m-4">
+    <div id="customModal" class="fixed inset-0 z-50 hidden bg-zinc-950/90 backdrop-blur-md flex items-center justify-center transition-opacity">
+        <div class="glass-card border border-zinc-700/80 w-full max-w-md p-6 rounded-2xl shadow-2xl shadow-black/50 transform scale-95 opacity-0 transition-all duration-300 m-4">
             <div class="flex justify-between items-center mb-4 border-b border-zinc-800 pb-2">
                 <h3 id="modalTitle" class="text-lg font-bold text-white">Notification</h3>
                 <button onclick="closeModal()" class="text-zinc-500 hover:text-white">

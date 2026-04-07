@@ -32,12 +32,12 @@ function listFiles($title, $folder) {
                 if (is_file($filepath)) {
                     $size = formatBytes(filesize($filepath));
                     $url = rtrim($folder, '/') . '/' . rawurlencode($file);
-                    echo "<li class='hover:bg-zinc-700/50 transition-colors duration-200'>";
+                    echo "<li class='archive-row hover:bg-zinc-700/50 transition-all duration-200'>";
                     echo "<a href=\"$url\" download class='flex items-center justify-between p-4 group'>";
                     echo "<div class='flex items-center text-zinc-300 group-hover:text-white transition-colors'>";
                     echo "$iconFile <span class='font-medium'>$file</span>";
                     echo "</div>";
-                    echo "<span class='text-xs font-mono text-zinc-500 bg-zinc-900 px-2 py-1 rounded border border-zinc-700'>$size</span>";
+                    echo "<span class='text-xs font-mono text-zinc-500 bg-zinc-900/80 px-2 py-1 rounded-md border border-zinc-700 group-hover:border-indigo-500/50 transition-colors'>$size</span>";
                     echo "</a></li>";
                 }
             }
@@ -56,13 +56,99 @@ function listFiles($title, $folder) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KT - Management [Alleria]</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        ::-webkit-scrollbar { width: 8px; height: 8px; }
-        ::-webkit-scrollbar-track { background: #18181b; }
-        ::-webkit-scrollbar-thumb { background: #3f3f46; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #52525b; }
+        :root {
+            --accent: #6366f1;
+            --accent-glow: rgba(99, 102, 241, 0.35);
+            --accent-glow-soft: rgba(99, 102, 241, 0.12);
+        }
+
+        * { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+
         body { font-family: 'Inter', system-ui, -apple-system, sans-serif; }
+
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #09090b; }
+        ::-webkit-scrollbar-thumb { background: linear-gradient(180deg, #4f46e5, #7c3aed); border-radius: 999px; }
+        ::-webkit-scrollbar-thumb:hover { background: linear-gradient(180deg, #6366f1, #8b5cf6); }
+
+        /* Ambient background blobs */
+        body::before {
+            content: '';
+            position: fixed;
+            top: -20%;
+            left: -10%;
+            width: 50vw;
+            height: 50vw;
+            background: radial-gradient(circle, rgba(99,102,241,0.06) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
+        body::after {
+            content: '';
+            position: fixed;
+            bottom: -20%;
+            right: -10%;
+            width: 40vw;
+            height: 40vw;
+            background: radial-gradient(circle, rgba(168,85,247,0.05) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Gradient border on header */
+        header {
+            position: relative;
+        }
+        header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(99,102,241,0.5), rgba(168,85,247,0.4), transparent);
+        }
+
+        /* Footer gradient top border */
+        footer {
+            position: relative;
+        }
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(99,102,241,0.3), transparent);
+        }
+
+        /* Logo glow */
+        .logo-glow {
+            box-shadow: 0 0 16px rgba(99,102,241,0.5), 0 0 32px rgba(99,102,241,0.2);
+        }
+
+        /* Nav active glow */
+        .nav-active-glow {
+            box-shadow: 0 0 12px var(--accent-glow), 0 2px 8px var(--accent-glow-soft);
+        }
+
+        /* Fade-in animation for main content */
+        @keyframes fadeSlideIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        main { animation: fadeSlideIn 0.4s ease-out both; }
+
+        /* Archive list row hover glow */
+        .archive-row:hover {
+            background: rgba(99,102,241,0.06) !important;
+        }
     </style>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-J0WCNB0WDW"></script>
     <script>
@@ -74,15 +160,15 @@ function listFiles($title, $folder) {
 </head>
 <body class="bg-zinc-950 text-zinc-200 h-full flex flex-col overflow-hidden">
 
-    <header class="bg-zinc-900 border-b border-zinc-800 shadow-md z-20 flex-shrink-0">
+    <header class="bg-zinc-900/80 backdrop-blur-md border-b border-zinc-800 shadow-lg shadow-black/40 z-20 flex-shrink-0">
         <div class="w-full flex flex-wrap items-center justify-between px-6 py-3">
             
             <div class="flex items-center mr-8 flex-shrink-0">
-                <div class="bg-indigo-600 p-2 rounded-lg mr-3 shadow-lg shadow-indigo-500/20">
+                <div class="bg-gradient-to-br from-indigo-500 to-purple-600 p-2 rounded-xl mr-3 shadow-lg logo-glow">
                     <img src="http://alleria.pl/image/favicon.png" alt="Alleria Logo" class="w-6 h-6 object-contain">
                 </div>
                 <div>
-                    <h1 class="font-bold text-xl text-white tracking-tight whitespace-nowrap">Klocki Time</h1>
+                    <h1 class="font-extrabold text-xl text-white tracking-tight whitespace-nowrap bg-gradient-to-r from-white to-zinc-300 bg-clip-text">Klocki Time</h1>
                     <p class="text-xs text-zinc-400 font-mono uppercase tracking-widest hidden sm:block">Management Panel</p>
                 </div>
             </div>
@@ -107,7 +193,7 @@ function listFiles($title, $folder) {
                     $baseClass = "flex items-center px-3 py-2 text-sm font-semibold rounded-lg transition-all duration-300 whitespace-nowrap border border-transparent";
                     
                     if ($isActive) {
-                        $class = "$baseClass bg-{$item['color']}-600 text-white shadow-lg shadow-{$item['color']}-500/20";
+                        $class = "$baseClass bg-gradient-to-r from-{$item['color']}-600 to-{$item['color']}-500 text-white shadow-lg nav-active-glow";
                     } else {
                         if ($item['ext']) {
                             $class = "$baseClass bg-zinc-800 text-{$item['color']}-400 hover:bg-{$item['color']}-900/30 hover:text-{$item['color']}-200 border-zinc-700";
@@ -165,7 +251,7 @@ function listFiles($title, $folder) {
         <?php } ?>
     </main>
 
-    <footer class="bg-zinc-900 border-t border-zinc-800 py-3 flex-shrink-0 z-20">
+    <footer class="bg-zinc-900/80 backdrop-blur-md border-t border-zinc-800/50 py-3 flex-shrink-0 z-20">
         <div class="text-center text-xs font-mono text-zinc-500">
             &copy; 2025 - <?php echo $currentYear; ?> <a target="_blank" href="https://alleria.pl" class="text-zinc-300 hover:text-white transition-colors">Alleria</a> | All Rights Reserved | 
             Built by <a target="_blank" href="https://x.com/henas_pl" class="text-zinc-300 hover:text-white transition-colors">@henas_pl</a>

@@ -97,9 +97,19 @@ $currentYear = date('Y');
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Maintenance Control</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
+        * { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
         body { font-family: 'Inter', system-ui, -apple-system, sans-serif; }
+
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #09090b; }
+        ::-webkit-scrollbar-thumb { background: linear-gradient(180deg,#4f46e5,#7c3aed); border-radius:999px; }
+        ::-webkit-scrollbar-thumb:hover { background: linear-gradient(180deg,#6366f1,#8b5cf6); }
+
         /* Custom animation for pulse glow */
         @keyframes subtle-pulse {
             0%, 100% { opacity: 1; }
@@ -107,6 +117,26 @@ $currentYear = date('Y');
         }
         .animate-subtle-pulse {
             animation: subtle-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+
+        /* Glass card */
+        .glass-card {
+            background: rgba(24, 24, 27, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+
+        /* Card fade-in */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(16px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        .fade-in { animation: fadeUp 0.55s ease-out both; }
+        .fade-in-logo { animation: fadeUp 0.4s ease-out both; }
+
+        /* Logo glow */
+        .logo-glow {
+            filter: drop-shadow(0 0 14px rgba(99,102,241,0.45));
         }
     </style>
     <script>
@@ -215,10 +245,10 @@ $currentYear = date('Y');
     <div class="z-10 w-full max-w-md px-4">
         
         <div class="flex justify-center mb-8">
-             <img src="https://alleria.pl/image/logo-clr.png" alt="Alleria Logo" class="h-16 drop-shadow-2xl">
+             <img src="https://alleria.pl/image/logo-clr.png" alt="Alleria Logo" class="h-16 logo-glow fade-in-logo">
         </div>
 
-        <div class="bg-zinc-900 border border-zinc-800 rounded-2xl shadow-2xl p-8 text-center relative overflow-hidden backdrop-blur-sm">
+        <div class="glass-card border border-zinc-800/80 rounded-2xl shadow-2xl shadow-black/50 p-8 text-center relative overflow-hidden backdrop-blur-sm fade-in">
             
             <h2 class="text-2xl font-bold text-white mb-6 tracking-tight">Maintenance Control</h2>
 
@@ -228,7 +258,7 @@ $currentYear = date('Y');
             </div>
 
             <div class="grid grid-cols-2 gap-4">
-                <button id="btn-enable" onclick="sendAction('enable')" class="group flex items-center justify-center bg-zinc-800 hover:bg-indigo-600 text-white font-semibold py-3 px-4 rounded-xl transition-all duration-200 border border-zinc-700 hover:border-indigo-500 hover:shadow-lg hover:shadow-indigo-500/20">
+                <button id="btn-enable" onclick="sendAction('enable')" class="group flex items-center justify-center bg-zinc-800 hover:bg-gradient-to-r hover:from-indigo-600 hover:to-purple-600 text-white font-semibold py-3 px-4 rounded-xl transition-all duration-200 border border-zinc-700 hover:border-indigo-500 hover:shadow-lg hover:shadow-indigo-500/25">
                     <svg class="w-5 h-5 mr-2 text-indigo-400 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
                     Enable
                 </button>
@@ -240,7 +270,7 @@ $currentYear = date('Y');
             </div>
         </div>
 
-        <footer class="mt-8 text-center text-xs text-zinc-600 font-mono">
+        <footer class="mt-8 text-center text-xs text-zinc-600 font-mono fade-in">
             &copy; Alleria 2025 - <?php echo $currentYear; ?> | Built by <a href="https://x.com/henas_pl" target="_blank" class="text-zinc-500 hover:text-indigo-400 transition-colors">@henas_pl</a>
         </footer>
     </div>
