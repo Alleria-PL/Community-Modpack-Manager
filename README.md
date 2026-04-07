@@ -2,7 +2,8 @@
 
 This project provides a centralized platform integrating multiple services and tools for deployment, monitoring, and access management.
 
----
+![Screenshot](documentation/images/1.png)
+![Screenshot](documentation/images/2.png)
 
 ## Features
 
